@@ -1,0 +1,1 @@
+SELECT count(distinct operator) as total_operator FROM "icebase"."mitreusaf".usaf_fleet where cast(milage as double)  > 0
