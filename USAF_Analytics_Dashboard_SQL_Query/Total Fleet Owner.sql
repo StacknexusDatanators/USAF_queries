@@ -1,1 +1,0 @@
-SELECT count(distinct owner) as total_owner FROM "icebase"."mitreusaf".usaf_fleet where cast(milage as double)  > 0

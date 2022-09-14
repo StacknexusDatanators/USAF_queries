@@ -1,1 +1,0 @@
-SELECT count(distinct icao24) as total_fleets FROM "icebase"."mitreusaf".usaf_fleet where cast(milage as double)  > 0
