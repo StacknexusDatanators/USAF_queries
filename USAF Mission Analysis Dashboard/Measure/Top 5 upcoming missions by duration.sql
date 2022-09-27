@@ -1,7 +1,7 @@
 SELECT
-  missionname,date_diff ('day', start_date, end_date) AS days
+  mission_name,date_diff ('day', mission_start, mission_end) AS days
 FROM
-  icebase.mitreusaf.usaf_mission
-where start_date >= current_timestamp(6)
+  "missionusafdbdatabase"."public".missiondata
+where mission_start >= current_timestamp(6)
 order by 2 desc
 limit 5

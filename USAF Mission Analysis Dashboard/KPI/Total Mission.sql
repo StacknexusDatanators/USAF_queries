@@ -1,4 +1,4 @@
 SELECT
-  count(DISTINCT missionid) AS total_mision
+  count(DISTINCT mission_id) AS total_mision
 FROM
-  icebase.mitreusaf.usaf_mission
+  "missionusafdbdatabase"."public".missiondata

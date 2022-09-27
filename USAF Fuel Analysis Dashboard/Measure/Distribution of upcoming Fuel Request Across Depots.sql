@@ -1,11 +1,11 @@
 WITH t1 AS (
   SELECT
-    missionname,
-    missionid
+    mission_name,
+    mission_id
   FROM
-    "icebase"."mitreusaf".usaf_mission
+    "missionusafdbdatabase"."public".missiondata
   WHERE
-    start_date >= CURRENT_DATE
+    mission_start >= CURRENT_DATE
 ),
 t2 AS (
   SELECT
@@ -15,11 +15,11 @@ t2 AS (
     "icebase"."mitreusaf".usaf_fuel_requests
 )
 SELECT
-  missionname,
+  mission_name,
   sum(fuelval) AS total_fuel_reserved
 FROM
   t1
-  JOIN t2 ON t1.missionid = t2.missionid
+  JOIN t2 ON t1.mission_id = t2.missionid
   where fuelval > 0
 GROUP BY
   1

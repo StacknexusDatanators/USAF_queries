@@ -1,31 +1,31 @@
 WITH t1 AS (
   SELECT
-    missionid,
-    missionname,
+    mission_id,
+    mission_name,
     total_distance,
-    start_date,
-    end_date,
-    createdat,
-    updatedat,
-    status,
+    mission_start,
+    mission_end,
+    created_at,
+    updated_at,
+    status_mission,
     depots,
     aoc,
     split (fleets, ',') AS fleet_id
   FROM (
     SELECT
-      missionname,
-      missionid,
+      mission_name,
+      mission_id,
       total_distance,
-      start_date,
-      end_date,
-      createdat,
-      updatedat,
-      status,
+      mission_start,
+      mission_end,
+      created_at,
+      updated_at,
+      status_mission,
       depots,
       aoc,
-      listagg (fleet, ',') WITHIN GROUP (ORDER BY missionid) AS fleets
+      listagg (fleet, ',') WITHIN GROUP (ORDER BY mission_id) AS fleets
     FROM
-      "icebase"."mitreusaf".usaf_mission GROUP BY
+      "missionusafdbdatabase"."public".missiondata GROUP BY
         1,
         2,
         3,
@@ -38,17 +38,17 @@ WITH t1 AS (
         10)
 ),
 t2 (
-  missionid, missionname, total_distance, start_date, end_date, createdat, updatedat, status, depots, aoc, fleet
+  mission_id, mission_name, total_distance, mission_start, mission_end, created_at, updated_at, status_mission, depots, aoc, fleet
 ) AS (
   SELECT
-    missionid,
-    missionname,
+    mission_id,
+    mission_name,
     total_distance,
-    start_date,
-    end_date,
-    createdat,
-    updatedat,
-    status,
+    mission_start,
+    mission_end,
+    created_at,
+    updated_at,
+    status_mission,
     depots,
     aoc,
     t.*

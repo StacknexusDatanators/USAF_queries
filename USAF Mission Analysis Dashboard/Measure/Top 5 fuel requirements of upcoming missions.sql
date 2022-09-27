@@ -1,32 +1,32 @@
 WITH t1 AS (
   WITH t1 AS (
     SELECT
-      missionid,
-      missionname,
+      mission_id,
+      mission_name,
       total_distance,
-      start_date,
-      end_date,
-      createdat,
-      updatedat,
-      status,
+      mission_start,
+      mission_end,
+      created_at,
+      updated_at,
+      status_mission,
       depots,
       aoc,
       split (fleets, ',') AS fleet_id
     FROM (
       SELECT
-        missionname,
-        missionid,
+        mission_name,
+        mission_id,
         total_distance,
-        start_date,
-        end_date,
-        createdat,
-        updatedat,
-        status,
+        mission_start,
+        mission_end,
+        created_at,
+        updated_at,
+        status_mission,
         depots,
         aoc,
-        listagg (fleet, ',') WITHIN GROUP (ORDER BY missionid) AS fleets
+        listagg (fleet, ',') WITHIN GROUP (ORDER BY mission_id) AS fleets
       FROM
-        "icebase"."mitreusaf".usaf_mission GROUP BY
+        "missionusafdbdatabase"."public".missiondata GROUP BY
           1,
           2,
           3,
@@ -37,17 +37,17 @@ WITH t1 AS (
           8,
           9,
           10)),
-      t2 (missionid, missionname, total_distance, start_date, end_date, createdat, updatedat, status, depots, aoc, fleet)
+      t2 (mission_id, mission_name, total_distance, mission_start, mission_end, created_at, updated_at, status_mission, depots, aoc, fleet)
       AS (
       SELECT
-        missionid,
-        missionname,
+        mission_id,
+        mission_name,
         total_distance,
-        start_date,
-        end_date,
-        createdat,
-        updatedat,
-        status,
+        mission_start,
+        mission_end,
+        created_at,
+        updated_at,
+        status_mission,
         depots,
         aoc,
         t.*
@@ -59,7 +59,7 @@ WITH t1 AS (
         *
       FROM
         t2
-        where start_date >= current_timestamp(6)
+        where mission_start >= current_timestamp(6)
 ),
 t2 AS (
   SELECT
@@ -74,7 +74,7 @@ t2 AS (
 ),
 t3 AS (
   SELECT
-    missionname,
+    mission_name,
     sum(total_distance) AS total_distances,
     sum(round(cast(milage AS double), 2)) AS total_mileage
 FROM
@@ -83,7 +83,7 @@ FROM
     1
 )
 SELECT
-  missionname,
+  mission_name,
   round(total_distances / total_mileage,2) AS total_fuel_required
 FROM
   t3
